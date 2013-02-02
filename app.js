@@ -50,7 +50,7 @@ function handler (req, res) {
       }
       else {
         res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('Updated:'+result+'\n');
+        res.end('Updated:'+result.results+'\n');
       }
     });
     
