@@ -16,7 +16,7 @@ var mongo = require('mongodb');
 //  see: https://devcenter.heroku.com/articles/nodejs#using-mongodb
 var mongoUri = process.env.MONGOLAB_URI || 
               process.env.MONGOHQ_URL || 
-              'mongodb://localhost/mydb';
+              'mongodb://127.0.0.1/things';
   
 // We make a global var testData for the test data
 var db;
@@ -73,8 +73,8 @@ io.sockets.on('connection', function(socket){
   socket.emit('news', { hello: 'world' });
   socket.on('vote', function(data) {
     console.log('Client just sent:', data);
-    if (data.vote.bigger) {
-      collection.update({name: data.name}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+    if (data.bigger) {
+       db.collection('things').update({name: data.name}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
     } else {
       
     }
