@@ -48,6 +48,8 @@ app.get('/update', function(req, res){
       voteNo : 0
     };
     io.sockets.emit('update', result);
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Updated:'+JSON.stringify(result)+'\n');
   } else {
     var findName = "Joe Flacco";
     db.collection('things').findOne({name: findName}, function(error, result) {
