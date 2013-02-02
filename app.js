@@ -44,8 +44,7 @@ function handler (req, res) {
       }
       else {
         // Update all clients with data
-        result.numclients = numclients; // number of clients connected for UI
-        //console.log("mongo result: " + result);
+        result.numclients = numclients;
         io.sockets.emit('update', result);
         
         res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -72,10 +71,11 @@ io.configure(function () {
     io.set("polling duration", 10); 
 });
 
-var numclients;
+var numclients = 0;
 io.sockets.on('connection', function(socket){
   socket.emit('news', { hello: 'world' });
-  numclients = Object.keys(io.sockets.manager.connected).length;
+  numclients++;
+  io.sockets.emit('count', { numclients: numclients });
   
   socket.on('vote', function(data) {
     //console.log('Client just sent:', data);
@@ -87,6 +87,7 @@ io.sockets.on('connection', function(socket){
   }); 
   socket.on('disconnect', function() {
     console.log('Bye client :(');
-    numclients = Object.keys(io.sockets.manager.connected).length;
+    numclients--;
+    io.sockets.emit('count', { numclients: numclients });
   }); 
 });

@@ -6,9 +6,15 @@
         socket.on('update', function (data) {
             console.log(data.name);
             socket.emit('my other event', { my:'data' });
+            $('#numclients').html(data.numclients);
             $('#image1').attr('src', data.image1);
-            $('#image2').attr('src', data.image2)
+            $('#image2').attr('src', data.image2);
             $('#playerName').html(data.name);
+        });
+        // Get unique client count async
+        socket.on('count', function (data) {
+            console.log(data);
+            $('#numclients').html(data.numclients);
         });
 
         $('.js-vote').click(function() {
@@ -20,7 +26,7 @@
         });
     });
 </script>
-<span id="title">'+Socket.io Demo+'</span>
+<span id="title">'+Socket.io Demo+'</span><span id="numclients"></span
 <br>
 <span id="content">'Default'</span> <!-- Want to update this -->
 <div>
