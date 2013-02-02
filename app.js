@@ -7,6 +7,7 @@ var url = require('url');
 var app = require('http').createServer(handler).listen(port);
 var io = require('socket.io').listen(app)
 var fs = require('fs');
+var parser = require('./liveDataParser.js');
 var mongo = require('mongodb');
 
 
@@ -74,6 +75,22 @@ io.configure(function () {
 
 var numclients = 0; // Note: Socket.io client timeouts are 25 seconds by default
 io.sockets.on('connection', function(socket){
+    socket.emit('news', { hello: 'world' });
+    socket.on('vote', function(data) {
+        console.log('Client just sent:', data); 
+    }); 
+    socket.on('disconnect', function() {
+        console.log('Bye client :(');
+    }); 
+});
+
+/*
+// This is an interval timer firing every 1000ms
+setInterval(function() {
+  io.sockets.emit('news', {test: "xxx!"} );
+}, 1000 );
+*/
+
   socket.emit('news', { hello: 'world' });
   numclients++;
   io.sockets.emit('count', { numclients: numclients });
@@ -85,10 +102,16 @@ io.sockets.on('connection', function(socket){
     } else {
       db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
     }
-  }); 
+  });
+
   socket.on('disconnect', function() {
     console.log('Bye client :(');
     numclients--;
     io.sockets.emit('count', { numclients: numclients });
   }); 
-});
+
+parser.getLastPlayer(lastPlayersReceived);
+
+function lastPlayersReceived(model) {
+    console.log("we got " + model.players.length + " players back for play: " + model.playId);
+}

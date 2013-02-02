@@ -13,6 +13,8 @@
     "mocha": "1.4.2",
     "socket.io": "latest",
     "socket.io-client": "latest",
+    "xml2js": "latest",
     "mongodb": "latest"
+
   }
 }
