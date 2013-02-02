@@ -41,9 +41,15 @@
             socket.on('update', function (data) {
                 console.log(data.name);
                 socket.emit('my other event', { my:'data' });
+                $('#numclients').html(data.numclients);
                 $('#image1').attr('src', data.image1);
                 $('#image2').attr('src', data.image2)
                 $('#playerName').html(data.name);
+            });
+            
+            socket.on('count', function (data) {
+                console.log(data.name);
+                $('#numclients').html(data.numclients);
             });
 
             $('.js-vote').click(function() {
