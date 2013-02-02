@@ -2,9 +2,9 @@
 // Present users with a vote page with two pictures of player, and the results
 // of the previous poll. We use socket.io to handle browser push.
 
-var port = 8000;
+var port = process.env.PORT || 8000;
 var url = require('url');
-var app = require('http').createServer(handler).listen(8000);
+var app = require('http').createServer(handler).listen(port);
 var io = require('socket.io').listen(app)
 var fs = require('fs');
 
@@ -31,6 +31,12 @@ function handler (req, res) {
     });
   }
 }
+
+// Heroku setting for long polling
+io.configure(function () { 
+    io.set("transports", ["xhr-polling"]); 
+    io.set("polling duration", 10); 
+});
 
 io.sockets.on('connection', function(socket){
     socket.emit('news', { hello: 'world' });
