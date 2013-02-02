@@ -7,6 +7,7 @@ var url = require('url');
 var app = require('http').createServer(handler).listen(port);
 var io = require('socket.io').listen(app)
 var fs = require('fs');
+var parser = require('./liveDataParser.js');
 
 function handler (req, res) {
   var pathname = url.parse(req.url).pathname;
@@ -59,3 +60,9 @@ setInterval(function() {
   io.sockets.emit('news', {test: "xxx!"} );
 }, 1000 );
 */
+
+parser.getLastPlayer(lastPlayersReceived);
+
+function lastPlayersReceived(model) {
+    console.log("we got " + model.players.length + " players back for play: " + model.playId);
+}
