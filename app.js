@@ -22,12 +22,14 @@ var db;
 mongo.Db.connect(mongoUri, function (err, dbHandle) {
   // We make a global var testData for the test data
   db = dbHandle;
+  /*
   dbHandle.collection('things', function(er, collection) {
     var testData = collection;
     dbHandle.collection('things').findOne({name: "Joe Flacco"}, function(error, result) {
       console.log(result);
     });
   });
+  */
 });
 
 // </MongoDB Stuff>
