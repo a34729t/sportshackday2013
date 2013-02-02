@@ -18,7 +18,7 @@ function handler (req, res) {
     io.sockets.emit('update', {
         name: "Justin Smith",
         image1: "http://placekitten.com/g/200/300",
-        image2: "http://placekitten.com/g/200/300"
+        image2: "http://placekitten.com/200/300"
 
     });
     res.writeHead(200, {'Content-Type': 'text/plain'});
