@@ -15,7 +15,12 @@ function handler (req, res) {
   // it is easier and faster to use the basic node.js http server
   // instead of relying on express.
   if (pathname === '/update') {
-    io.sockets.emit('update', {name: "foo"});
+    io.sockets.emit('update', {
+        name: "Justin Smith",
+        image1: "http://placekitten.com/g/200/300",
+        image2: "http://placekitten.com/g/200/300"
+
+    });
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Updated!\n');
   } else {
@@ -40,7 +45,7 @@ io.configure(function () {
 
 io.sockets.on('connection', function(socket){
     socket.emit('news', { hello: 'world' });
-    socket.on('message', function(data) {
+    socket.on('vote', function(data) {
         console.log('Client just sent:', data); 
     }); 
     socket.on('disconnect', function() {

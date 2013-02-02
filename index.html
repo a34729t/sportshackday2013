@@ -1,12 +1,37 @@
 <script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script>
-  var socket = io.connect();
-  socket.on('update', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-    document.getElementById("content").innerHTML = "whatever";
-  });
+    $(document).ready(function() {
+        var socket = io.connect();
+        socket.on('update', function (data) {
+            console.log(data.name);
+            socket.emit('my other event', { my:'data' });
+            $('#image1').attr('src', data.image1);
+            $('#image2').attr('src', data.image2)
+            $('#playerName').html(data.name);
+        });
+
+        $('.js-vote').click(function() {
+            console.log($(this).data('bigger'));
+            socket.emit('vote', {
+                bigger:$(this).data('bigger'),
+                id: $('#playerName').html()
+            })
+        });
+    });
 </script>
 <span id="title">'+Socket.io Demo+'</span>
 <br>
 <span id="content">'Default'</span> <!-- Want to update this -->
+<div>
+    <img src="" id="image1"></span>
+    <img src="" id="image2"></span>
+</div>
+<div>
+    <span id="playerName"></span>
+</div>
+<div>
+    <span class="js-vote" data-bigger='true'>YES</span>
+    <span class="js-vote" data-bigger='false'>NO</span>
+</div>
+
