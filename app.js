@@ -21,6 +21,7 @@ var mongoUri = process.env.MONGOLAB_URI ||
 // We make a global var testData for the test data
 var db;
 mongo.Db.connect(mongoUri, function (err, dbHandle) {
+  if (err) console.log("mongo err");
   db = dbHandle;
 });
 
@@ -35,27 +36,19 @@ function handler (req, res) {
   // instead of relying on express.
   if (pathname === '/update') {
     // Dumb Attempt: Fetch Joe Flacco from MongoDB
-    db.collection('things').findOne({name: "Joe Flacco"}, function(error, result) {
+    var findName = "Joe Flacco";
+    db.collection('things').findOne({name: findName}, function(error, result) {
       if( error ) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Error with db get!\n');
       }
       else {
         res.writeHead(200, {'Content-Type': 'text/plain'});
+        console.log("mongo result: " + result);
         io.sockets.emit('update', result);
         res.end('Updated:'+JSON.stringify(result)+'\n');
       }
     });
-    
-    /*
-    io.sockets.emit('update', {
-        name: "Justin Smith",
-        image1: "http://placekitten.com/g/200/300",
-        image2: "http://placekitten.com/200/300"
-
-    });
-    */
-    
   } else {
     // Show the index.html file (todo, load on startup only?)
     fs.readFile(__dirname + '/index.html',
@@ -77,13 +70,19 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function(socket){
-    socket.emit('news', { hello: 'world' });
-    socket.on('vote', function(data) {
-        console.log('Client just sent:', data); 
-    }); 
-    socket.on('disconnect', function() {
-        console.log('Bye client :(');
-    }); 
+  socket.emit('news', { hello: 'world' });
+  socket.on('vote', function(data) {
+    console.log('Client just sent:', data);
+    if (data.vote.bigger) {
+      collection.update({name: data.name}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+    } else {
+      
+    }
+    
+  }); 
+  socket.on('disconnect', function() {
+    console.log('Bye client :(');
+  }); 
 });
 
 /*
