@@ -6,6 +6,10 @@ Sports Hack Day Project 2013, Superbowl
 
 1. Simple socket.io script that takes clients and pushes info to them when a url on server-side is called.
 
+Run the server by typing:
+
+    node app.js
+
 In one browser window:
 
     http://localhost:8000/
