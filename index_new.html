@@ -8,7 +8,7 @@
     <!-- Basic Page Needs
   ================================================== -->
     <meta charset="utf-8">
-    <title>Juicy</title>
+    <title>Your Page Title Here :)</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -18,9 +18,9 @@
 
     <!-- CSS
   ================================================== -->
-    <link rel="stylesheet" href="stylesheets/base.css">
-    <link rel="stylesheet" href="stylesheets/skeleton.css">
-    <link rel="stylesheet" href="stylesheets/layout.css">
+    <link rel="stylesheet" href="assets/stylesheets/base.css">
+    <link rel="stylesheet" href="assets/stylesheets/skeleton.css">
+    <link rel="stylesheet" href="assets/stylesheets/layout.css">
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -41,15 +41,9 @@
             socket.on('update', function (data) {
                 console.log(data.name);
                 socket.emit('my other event', { my:'data' });
-                $('#numclients').html(data.numclients);
                 $('#image1').attr('src', data.image1);
                 $('#image2').attr('src', data.image2)
                 $('#playerName').html(data.name);
-            });
-            
-            socket.on('count', function (data) {
-                console.log(data.name);
-                $('#numclients').html(data.numclients);
             });
 
             $('.js-vote').click(function() {
@@ -85,15 +79,15 @@
                 <span id="playerName"></span>
             </div>
             <div>
-                <span class="js-vote button" data-bigger='true'>YES</span>
-                <span class="js-vote button" data-bigger='false'>NO</span>
+                <span class="js-vote" data-bigger='true'>YES</span>
+                <span class="js-vote" data-bigger='false'>NO</span>
             </div>
         </div>
         <div class="sixteen columns">
             <!-- To take up full-width of a container? -->
-            <a href="#" class="full-width button">START</a>
+            <a href="#" class="full-width button">Click Me</a>
+
         </div>
-        
     </div><!-- container -->
 
 

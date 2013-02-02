@@ -1,0 +1,97 @@
+// Basic idea:
+// Present users with a vote page with two pictures of player, and the results
+// of the previous poll. We use socket.io to handle browser push.
+
+var port = process.env.PORT || 8000;
+var url = require('url');
+var express = require('express');
+var app = express.createServer();
+var io = require('socket.io').listen(app)
+var fs = require('fs');
+var mongo = require('mongodb');
+
+// <MongoDB Stuff>
+
+// To use mongodb on heroku:
+//  see: https://devcenter.heroku.com/articles/nodejs#using-mongodb
+var mongoUri = process.env.MONGOLAB_URI || 
+              process.env.MONGOHQ_URL || 
+              'mongodb://127.0.0.1/things';
+
+// We make a global var testData for the test data
+var db;
+mongo.Db.connect(mongoUri, function (err, dbHandle) {
+  if (err) console.log("mongo err");
+  db = dbHandle;
+});
+
+// </MongoDB Stuff>
+  
+
+// <Express>
+
+// simple logger
+app.use(function(req, res, next){
+  console.log('%s %s', req.method, req.url);
+  next();
+});
+app.get('/update', function(req, res){
+  // Dumb Attempt: Fetch Joe Flacco from MongoDB
+  var findName = "Joe Flacco";
+  db.collection('things').findOne({name: findName}, function(error, result) {
+    if( error ) {
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.end('Error with db get!\n');
+    }
+    else {
+      // Update all clients with data
+      result.numclients = numclients; // not necessary
+      io.sockets.emit('update', result);
+      
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.end('Updated:'+JSON.stringify(result)+'\n');
+    }
+  });
+});
+app.get('/', function(req, res){
+  fs.readFile(__dirname + '/index.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html');
+    }
+    res.writeHead(200);
+    res.end(data);
+  });
+});
+app.use(express.static(__dirname + '/assets'));
+app.listen(port);
+
+// <Express>
+
+// Heroku setting for long polling
+io.configure(function () { 
+    io.set("transports", ["xhr-polling"]); 
+    io.set("polling duration", 10); 
+});
+
+var numclients = 0; // Note: Socket.io client timeouts are 25 seconds by default
+io.sockets.on('connection', function(socket){
+  socket.emit('news', { hello: 'world' });
+  numclients++;
+  io.sockets.emit('count', { numclients: numclients });
+  
+  socket.on('vote', function(data) {
+    //console.log('Client just sent:', data);
+    if (data.bigger) {
+      db.collection('things').update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+    } else {
+      db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
+    }
+  }); 
+  socket.on('disconnect', function() {
+    console.log('Bye client :(');
+    numclients--;
+    io.sockets.emit('count', { numclients: numclients });
+  }); 
+});
