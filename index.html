@@ -1,37 +1,97 @@
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var socket = io.connect();
-        socket.on('update', function (data) {
-            console.log(data.name);
-            socket.emit('my other event', { my:'data' });
-            $('#image1').attr('src', data.image1);
-            $('#image2').attr('src', data.image2)
-            $('#playerName').html(data.name);
-        });
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
 
-        $('.js-vote').click(function() {
-            console.log($(this).data('bigger'));
-            socket.emit('vote', {
-                bigger:$(this).data('bigger'),
-                id: $('#playerName').html()
-            })
-        });
-    });
-</script>
-<span id="title">'+Socket.io Demo+'</span>
-<br>
-<span id="content">'Default'</span> <!-- Want to update this -->
-<div>
-    <img src="" id="image1"></span>
-    <img src="" id="image2"></span>
-</div>
-<div>
-    <span id="playerName"></span>
-</div>
-<div>
-    <span class="js-vote" data-bigger='true'>YES</span>
-    <span class="js-vote" data-bigger='false'>NO</span>
-</div>
+    <!-- Basic Page Needs
+  ================================================== -->
+    <meta charset="utf-8">
+    <title>Your Page Title Here :)</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <!-- Mobile Specific Metas
+  ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+  ================================================== -->
+    <link rel="stylesheet" href="assets/stylesheets/base.css">
+    <link rel="stylesheet" href="assets/stylesheets/skeleton.css">
+    <link rel="stylesheet" href="assets/stylesheets/layout.css">
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var socket = io.connect();
+            socket.on('update', function (data) {
+                console.log(data.name);
+                socket.emit('my other event', { my:'data' });
+                $('#image1').attr('src', data.image1);
+                $('#image2').attr('src', data.image2)
+                $('#playerName').html(data.name);
+            });
+
+            $('.js-vote').click(function() {
+                console.log($(this).data('bigger'));
+                socket.emit('vote', {
+                    bigger:$(this).data('bigger'),
+                    id: $('#playerName').html()
+                })
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+
+
+    <!-- Primary Page Layout
+    ================================================== -->
+
+    <!-- Delete everything in this .container and get started on your own site! -->
+
+    <div class="container">
+        <div class="sixteen columns">
+            <h1 class="remove-bottom" style="margin-top: 40px">Juicy</h1>
+            <br>
+            <span id="content">'Default'</span> <!-- Want to update this -->
+            <div>
+                <img src="" id="image1"></span>
+                <img src="" id="image2"></span>
+            </div>
+            <div>
+                <span id="playerName"></span>
+            </div>
+            <div>
+                <span class="js-vote" data-bigger='true'>YES</span>
+                <span class="js-vote" data-bigger='false'>NO</span>
+            </div>
+        </div>
+        <div class="sixteen columns">
+            <!-- To take up full-width of a container? -->
+            <a href="#" class="full-width button">Click Me</a>
+
+        </div>
+    </div><!-- container -->
+
+
+<!-- End Document
+================================================== -->
+</body>
+</html>
