@@ -99,10 +99,15 @@ io.sockets.on('connection', function(socket){
   
   socket.on('vote', function(data) {
     //console.log('Client just sent:', data);
-    if (data.bigger) {
-      db.collection('things').update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+    if (!db) {
+      // Local testing mode:
+      console.log("data.bigger="+data.bigger);
     } else {
-      db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
+      if (data.bigger) {
+        db.collection('things').update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+      } else {
+        db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
+      }
     }
   }); 
   socket.on('disconnect', function() {
