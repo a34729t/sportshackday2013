@@ -18,16 +18,17 @@ var mongoUri = process.env.MONGOLAB_URI ||
               process.env.MONGOHQ_URL || 
               'mongodb://localhost/mydb';
   
-mongo.connect(mongoUri, function(err, db) {
-  if(err) {
-    return console.dir(err);
-  } else {
-    console.log("Connected to MongoDB (Heroku)");
-  }
+var testData;
+mongo.Db.connect(mongoUri, function (err, db) {
+  // We make a global var testData for the test data
+  db.collection('things', function(er, collection) {
+    var testData = collection;
+  });
 });
-  
+
 // </MongoDB Stuff>
   
+
 function handler (req, res) {
   var pathname = url.parse(req.url).pathname;
   
@@ -35,14 +36,27 @@ function handler (req, res) {
   // it is easier and faster to use the basic node.js http server
   // instead of relying on express.
   if (pathname === '/update') {
+    // Dumb Attempt: Fetch Joe Flacco from MongoDB
+    testData.findOne({name: "Joe Flacco"}, function(error, result) {
+      if( error ) {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Error with db get!\n');
+      }
+      else {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Updated:'+result+'\n');
+      }
+    });
+    
+    /*
     io.sockets.emit('update', {
         name: "Justin Smith",
         image1: "http://placekitten.com/g/200/300",
         image2: "http://placekitten.com/200/300"
 
     });
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Updated!\n');
+    */
+    
   } else {
     // Show the index.html file (todo, load on startup only?)
     fs.readFile(__dirname + '/index.html',
