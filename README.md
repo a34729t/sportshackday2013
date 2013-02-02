@@ -26,7 +26,7 @@ To push changes:
 
     git push heroku master
 
-To actually turn the on:
+To actually turn the on (doesn't need to be re-turned on):
 
     heroku ps:scale web=1
     
