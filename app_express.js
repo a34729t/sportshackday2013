@@ -37,21 +37,35 @@ app.use(function(req, res, next){
 });
 app.get('/update', function(req, res){
   // Dumb Attempt: Fetch Joe Flacco from MongoDB
-  var findName = "Joe Flacco";
-  db.collection('things').findOne({name: findName}, function(error, result) {
-    if( error ) {
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end('Error with db get!\n');
-    }
-    else {
-      // Update all clients with data
-      result.numclients = numclients; // not necessary
-      io.sockets.emit('update', result);
+  
+  if (!db) {
+    // Local testing mode:
+    result = {
+      name: "Joe Flacco", 
+      image1 : "http://placekitten.com/202/300", 
+      image2 : "http://placekitten.com/204/300", 
+      voteYes : 0, 
+      voteNo : 0
+    };
+    io.sockets.emit('update', result);
+  } else {
+    var findName = "Joe Flacco";
+    db.collection('things').findOne({name: findName}, function(error, result) {
+      if( error ) {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Error with db get!\n');
+      }
+      else {
+        // Update all clients with data
+        result.numclients = numclients; // not necessary
+        io.sockets.emit('update', result);
       
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end('Updated:'+JSON.stringify(result)+'\n');
-    }
-  });
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Updated:'+JSON.stringify(result)+'\n');
+      }
+    });
+  } 
+  
 });
 app.get('/', function(req, res){
   fs.readFile(__dirname + '/index.html',
