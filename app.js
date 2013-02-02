@@ -43,9 +43,12 @@ function handler (req, res) {
         res.end('Error with db get!\n');
       }
       else {
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        console.log("mongo result: " + result);
+        // Update all clients with data
+        result.numclients = numclients; // number of clients connected for UI
+        //console.log("mongo result: " + result);
         io.sockets.emit('update', result);
+        
+        res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Updated:'+JSON.stringify(result)+'\n');
       }
     });
@@ -69,25 +72,21 @@ io.configure(function () {
     io.set("polling duration", 10); 
 });
 
+var numclients;
 io.sockets.on('connection', function(socket){
   socket.emit('news', { hello: 'world' });
+  numclients = Object.keys(io.sockets.manager.connected).length;
+  
   socket.on('vote', function(data) {
-    console.log('Client just sent:', data);
+    //console.log('Client just sent:', data);
     if (data.bigger) {
-       db.collection('things').update({name: data.name}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+      db.collection('things').update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
     } else {
-      
+      db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
     }
-    
   }); 
   socket.on('disconnect', function() {
     console.log('Bye client :(');
+    numclients = Object.keys(io.sockets.manager.connected).length;
   }); 
 });
-
-/*
-// This is an interval timer firing every 1000ms
-setInterval(function() {
-  io.sockets.emit('news', {test: "xxx!"} );
-}, 1000 );
-*/
