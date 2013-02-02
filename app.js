@@ -7,7 +7,27 @@ var url = require('url');
 var app = require('http').createServer(handler).listen(port);
 var io = require('socket.io').listen(app)
 var fs = require('fs');
+var mongo = require('mongodb');
 
+
+// <MongoDB Stuff>
+
+// To use mongodb on heroku:
+//  see: https://devcenter.heroku.com/articles/nodejs#using-mongodb
+var mongoUri = process.env.MONGOLAB_URI || 
+              process.env.MONGOHQ_URL || 
+              'mongodb://localhost/mydb';
+  
+mongo.connect(mongoUri, function(err, db) {
+  if(err) {
+    return console.dir(err);
+  } else {
+    console.log("Connected to MongoDB (Heroku)");
+  }
+});
+  
+// </MongoDB Stuff>
+  
 function handler (req, res) {
   var pathname = url.parse(req.url).pathname;
   
