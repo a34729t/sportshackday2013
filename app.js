@@ -23,6 +23,9 @@ mongo.Db.connect(mongoUri, function (err, db) {
   // We make a global var testData for the test data
   db.collection('things', function(er, collection) {
     var testData = collection;
+    collection.findOne({name: "Joe Flacco"}, function(error, result) {
+      console.log(result);
+    }
   });
 });
 
