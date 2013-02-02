@@ -1,6 +1,7 @@
 {
   "name": "sportshackday2013",
   "version": "0.0.1",
+  "engine": "node 0.8.14",
   "dependencies": {
     "express": "2.5.9",
     "connect": "1.8.7",
