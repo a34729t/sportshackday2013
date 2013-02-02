@@ -12,6 +12,7 @@
     "winston": "0.6.2",
     "mocha": "1.4.2",
     "socket.io": "latest",
-    "socket.io-client": "latest"
+    "socket.io-client": "latest",
+    "mongodb": "latest"
   }
 }
