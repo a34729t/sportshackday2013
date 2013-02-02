@@ -17,6 +17,10 @@
 /* #Site Styles
 ================================================== */
 
+html, body {
+	background: #fcfcfc url(../images/turf_bg.jpg);
+}
+
 /* #Page Styles
 ================================================== */
 
