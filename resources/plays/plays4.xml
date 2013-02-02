@@ -1,0 +1,98 @@
+  <play id="f052746a-a6c6-46ee-828c-3478271a1ef9" clock="01:14" type="pass" sequence="163" updated="2012-12-21T03:30:48+00:00" side="NE" yard_line="11" down="2" yfd="3">
+        <participants>
+          <player id="6cb6226e-f08c-4192-95f1-69709ed686c6" name="Eli Manning" jersey="10" position="QB" team="NYG"/>
+          <player id="23d7cd82-d526-4fd8-8f8a-97885f2bc926" name="Hakeem Nicks" jersey="88" position="WR" team="NYG"/>
+          <player id="88d2dbf4-3b9f-43ea-bac6-a8722cb24f43" name="Devin McCourty" jersey="32" position="CB" team="NE"/>
+        </participants>
+        <summary>10-E.Manning complete to 88-H.Nicks. 88-H.Nicks pushed ob at NE 7 for 4 yards (32-D.McCourty).</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/f052746a-a6c6-46ee-828c-3478271a1ef9.xml" type="application/xml"/>
+        </links>
+      </play>
+      <play id="82684332-2946-4a77-a576-8087f97b7df6" clock="01:09" type="rush" sequence="164" updated="2012-12-21T03:30:57+00:00" side="NE" yard_line="7" down="1" yfd="7">
+        <participants>
+          <player id="8f22eb36-5282-407a-b6f9-f9b62e5f7318" name="Ahmad Bradshaw" jersey="44" position="RB" team="NYG"/>
+          <player id="28a2a255-9227-4a5f-a4ec-0ee4b2bf629b" name="Jerod Mayo" jersey="51" position="LB" team="NE"/>
+        </participants>
+        <summary>44-A.Bradshaw to NE 6 for 1 yard (51-J.Mayo).</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/82684332-2946-4a77-a576-8087f97b7df6.xml" type="application/xml"/>
+        </links>
+      </play>
+      <play id="462e039f-6f91-4613-94d0-ee5913c2edc4" clock="01:04" type="rush" sequence="165" updated="2012-12-21T03:31:15+00:00" side="NE" yard_line="6" down="2" yfd="6">
+        <participants>
+          <player id="8f22eb36-5282-407a-b6f9-f9b62e5f7318" name="Ahmad Bradshaw" jersey="44" position="RB" team="NYG"/>
+        </participants>
+        <summary>44-A.Bradshaw runs 6 yards for a touchdown.</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/462e039f-6f91-4613-94d0-ee5913c2edc4.xml" type="application/xml"/>
+        </links>
+      </play>
+      <play id="09fcaa82-4452-4984-bf24-7f6b58b0f3e2" clock=":57" type="extrapoint" sequence="166" updated="2012-02-13T17:13:32+00:00" side="NE" yard_line="2">
+        <participants>
+          <player id="ed372603-b648-4997-a6c1-37bffd07da4a" name="Danny Ware" jersey="28" position="RB" team="NYG"/>
+        </participants>
+        <summary>28-D.Ware to NE 2 for no gain.</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/09fcaa82-4452-4984-bf24-7f6b58b0f3e2.xml" type="application/xml"/>
+        </links>
+      </play>
+      <play id="6f7ecbab-1e14-4b89-9fc4-961cb36ab9d7" clock=":57" type="kick" sequence="167" updated="2012-12-21T03:31:23+00:00" side="NYG" yard_line="35">
+        <participants>
+          <player id="97cebfd1-f7d0-4fc7-b3d8-6d2308e992e3" name="Lawrence Tynes" jersey="9" position="K" team="NYG"/>
+          <player id="2bb70d56-a79a-4fa1-ae37-99858a3ffd55" name="Julian Edelman" jersey="11" position="WR" team="NE"/>
+        </participants>
+        <summary>9-L.Tynes kicks 30 yards from NYG 35. 11-J.Edelman to NE End Zone. 11-J.Edelman, touchback.</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/6f7ecbab-1e14-4b89-9fc4-961cb36ab9d7.xml" type="application/xml"/>
+        </links>
+      </play>
+    </drive>
+    <drive clock=":57" team="NE">
+      <play id="918b9d22-b50d-4de6-affd-db78a67af73f" clock=":57" type="pass" sequence="168" updated="2012-12-21T03:31:31+00:00" side="NE" yard_line="20" down="1" yfd="10">
+        <participants>
+          <player id="41c44740-d0f6-44ab-8347-3b5d515e5ecf" name="Tom Brady" jersey="12" position="QB" team="NE"/>
+          <player id="76346643-3fc7-410e-a8f7-ca4c0ae12d83" name="Deion Branch" jersey="84" position="WR" team="NE"/>
+        </participants>
+        <summary>12-T.Brady incomplete. Intended for 84-D.Branch.</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/918b9d22-b50d-4de6-affd-db78a67af73f.xml" type="application/xml"/>
+        </links>
+      </play>
+      <play id="2bd707b7-f83c-4f50-8ea9-f14d37fe5d2f" clock=":52" type="pass" sequence="169" updated="2012-12-21T03:31:38+00:00" side="NE" yard_line="20" down="2" yfd="10">
+        <participants>
+          <player id="41c44740-d0f6-44ab-8347-3b5d515e5ecf" name="Tom Brady" jersey="12" position="QB" team="NE"/>
+          <player id="f28cbca1-9c1e-4b90-865a-699bfa386c75" name="Osi Umenyiora" jersey="72" position="DE" team="NYG"/>
+          <player id="333ec527-c93d-4a66-8713-b697488c030b" name="Aaron Hernandez" jersey="81" position="TE" team="NE"/>
+        </participants>
+        <summary>12-T.Brady incomplete. Intended for 81-A.Hernandez.</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/2bd707b7-f83c-4f50-8ea9-f14d37fe5d2f.xml" type="application/xml"/>
+        </links>
+      </play>
+      <play id="b4de1e00-7d27-4651-bfb2-1b94aa751d9e" clock=":48" type="pass" sequence="170" updated="2012-12-21T03:32:05+00:00" side="NE" yard_line="20" down="3" yfd="10">
+        <participants>
+          <player id="41c44740-d0f6-44ab-8347-3b5d515e5ecf" name="Tom Brady" jersey="12" position="QB" team="NE"/>
+          <player id="bbfb80d3-910b-4be2-be73-3dab3c5ce398" name="Justin Tuck" jersey="91" position="DE" team="NYG"/>
+        </participants>
+        <summary>12-T.Brady sacked at NE 14 for -6 yards (91-J.Tuck).</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/b4de1e00-7d27-4651-bfb2-1b94aa751d9e.xml" type="application/xml"/>
+        </links>
+      </play>
+      <event clock=":39" type="teamtimeout" sequence="171" updated="2012-02-06T02:49:58+00:00">
+        <timeout number="1"/>
+        <summary>Timeout #1 by NE at :39.</summary>
+      </event>
+      <play id="a145ff7b-c724-4038-aca1-7523c622c370" clock=":39" type="pass" sequence="172" updated="2012-12-21T03:32:14+00:00" side="NE" yard_line="14" down="4" yfd="16">
+        <participants>
+          <player id="41c44740-d0f6-44ab-8347-3b5d515e5ecf" name="Tom Brady" jersey="12" position="QB" team="NE"/>
+          <player id="76346643-3fc7-410e-a8f7-ca4c0ae12d83" name="Deion Branch" jersey="84" position="WR" team="NE"/>
+          <player id="ed8fdad4-b43e-4232-b0de-c579d5348286" name="Corey Webster" jersey="23" position="CB" team="NYG"/>
+        </participants>
+        <summary>12-T.Brady complete to 84-D.Branch. 84-D.Branch pushed ob at NE 33 for 19 yards (23-C.Webster).</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/a145ff7b-c724-4038-aca1-7523c622c370.xml" type="application/xml"/>
+        </links>
+      </play>
+    </play>

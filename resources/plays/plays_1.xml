@@ -1,0 +1,11 @@
+  <play id="f052746a-a6c6-46ee-828c-3478271a1ef9" clock="01:14" type="pass" sequence="163" updated="2012-12-21T03:30:48+00:00" side="NE" yard_line="11" down="2" yfd="3">
+        <participants>
+          <player id="6cb6226e-f08c-4192-95f1-69709ed686c6" name="Eli Manning" jersey="10" position="QB" team="NYG"/>
+          <player id="23d7cd82-d526-4fd8-8f8a-97885f2bc926" name="Hakeem Nicks" jersey="88" position="WR" team="NYG"/>
+          <player id="88d2dbf4-3b9f-43ea-bac6-a8722cb24f43" name="Devin McCourty" jersey="32" position="CB" team="NE"/>
+        </participants>
+        <summary>10-E.Manning complete to 88-H.Nicks. 88-H.Nicks pushed ob at NE 7 for 4 yards (32-D.McCourty).</summary>
+        <links>
+          <link rel="summary" href="/2011/PST/4/NYG/NE/plays/f052746a-a6c6-46ee-828c-3478271a1ef9.xml" type="application/xml"/>
+        </links>
+      </play>
