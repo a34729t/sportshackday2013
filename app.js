@@ -18,14 +18,15 @@ var mongoUri = process.env.MONGOLAB_URI ||
               process.env.MONGOHQ_URL || 
               'mongodb://localhost/mydb';
   
-var testData;
-mongo.Db.connect(mongoUri, function (err, db) {
+var db;
+mongo.Db.connect(mongoUri, function (err, dbHandle) {
   // We make a global var testData for the test data
-  db.collection('things', function(er, collection) {
+  db = dbHandle;
+  dbHandle.collection('things', function(er, collection) {
     var testData = collection;
-    collection.findOne({name: "Joe Flacco"}, function(error, result) {
+    dbHandle.collection('things').findOne({name: "Joe Flacco"}, function(error, result) {
       console.log(result);
-    }
+    });
   });
 });
 
@@ -40,7 +41,7 @@ function handler (req, res) {
   // instead of relying on express.
   if (pathname === '/update') {
     // Dumb Attempt: Fetch Joe Flacco from MongoDB
-    testData.findOne({name: "Joe Flacco"}, function(error, result) {
+    db.collection('things').findOne({name: "Joe Flacco"}, function(error, result) {
       if( error ) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Error with db get!\n');
