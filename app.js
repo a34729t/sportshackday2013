@@ -44,9 +44,10 @@ function handler (req, res) {
       }
       else {
         // Update all clients with data
-        result.numclients = numclients;
+        result.numclients = numclients; // not necessary
         io.sockets.emit('update', result);
         
+        res.writeHead(200, {'Content-Type': 'text/css'});
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Updated:'+JSON.stringify(result)+'\n');
       }
@@ -71,7 +72,7 @@ io.configure(function () {
     io.set("polling duration", 10); 
 });
 
-var numclients = 0;
+var numclients = 0; // Note: Socket.io client timeouts are 25 seconds by default
 io.sockets.on('connection', function(socket){
   socket.emit('news', { hello: 'world' });
   numclients++;
