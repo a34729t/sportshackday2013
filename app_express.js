@@ -236,10 +236,20 @@ function update(playerName, callback) {
             voteNo : 0
         };
         
-        if (playerName in player2VoteYes)
+        // Set player 2 vote hash properly (we avoid from reading db on vote updates for a player
+        // cause we want to avoid a bazillion db reads when a bunch of votes come in)
+        
+        if (playerName in player2VoteYes) {
           result.voteYes = player2VoteYes[playerName];
-        if (playerName in player2VoteNo)
+          player2VoteYes[playerName];
+        }
+        if (playerName in player2VoteNo) {    
           result.voteNo = player2VoteNo[playerName];
+          player2VoteNo[playerName];
+        }
+        
+        console.log("player2VoteYes = "+ JSON.stringify(player2VoteYes[playerName]));
+        console.log("player2VoteNo = "+ JSON.stringify(player2VoteNo[playerName]));
 
         lastModel = result;
         io.sockets.emit('update', result);
@@ -262,11 +272,14 @@ function update(playerName, callback) {
               if ('voteYes' in result) {
                 voteYes = result.voteYes;
               }
+              player2VoteYes[playerName] = voteYes;
                 
               var voteNo = 0;
               if ('voteNo' in result) {
                 voteNo = result.voteNo;
               }
+              player2VoteNo[playerName] = voteNo;
+             
               
               console.log("voteYes="+voteYes+" ,result.voteYes="+result.voteYes);
               console.log("voteNo="+voteNo+" ,result.voteNo="+result.voteNo);
