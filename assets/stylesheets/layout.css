@@ -18,7 +18,8 @@
 ================================================== */
 
 body {
-	background: #fcfcfc url(../images/turf_bg.jpg);
+	background: #fcfcfc url(../images/turf_bg.jpg) top center;
+	text-align: center;
 }
 
 /* #Page Styles
