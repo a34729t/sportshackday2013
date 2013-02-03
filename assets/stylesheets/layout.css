@@ -73,6 +73,13 @@ body {
 	color: #fff;
 }
 
+.picture-label {
+	position: absolute;
+	background-color: rgba(219,219,219,0.7);
+	padding: 3px;
+	width: 40px;
+}
+
 /* #Page Styles
 ================================================== */
 
