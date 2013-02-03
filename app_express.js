@@ -175,6 +175,12 @@ function update(playerName) {
             voteYes : 0,
             voteNo : 0
         };
+        
+        if (playerName in player2VoteYes)
+          result.voteYes = player2VoteYes[playerName];
+        if (playerName in player2VoteNo)
+          result.voteNo = player2VoteNo[playerName];
+            
         io.sockets.emit('update', result);
     } else {
         db.collection('things').findOne({name: playerName}, function(error, result) {
@@ -195,6 +201,8 @@ function update(playerName) {
 
 setInterval(function() {
     console.log('updating!');
+    console.log('player2VoteYes:'+JSON.stringify(player2VoteYes));
+    console.log('player2VoteNo:'+JSON.stringify(player2VoteNo));
     parser.getLastPlayer(onPlayersReceived);
 }, config.updateInterval);
 

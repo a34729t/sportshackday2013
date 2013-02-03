@@ -46,6 +46,8 @@
                 $('#image1').attr('src', data.image1);
                 $('#image2').attr('src', data.image2)
                 $('#playerName').html(data.name);
+                $('#vote-yes-count').html(data.voteYes);
+                $('#vote-no-count').html(data.voteNo);
             });
             
             socket.on('updateVote', function (data) {
