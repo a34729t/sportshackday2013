@@ -36,9 +36,17 @@ And to turn it off:
     
 ## Mongo
 
-To load the data into a db 'player_info' and a collection 'players', with a file 'resources/dump.json':
+Locally, to load the data into a db 'player_info' and a collection 'players', with a file 'resources/dump.json':
 
     mongoimport -d player_info -c players resources/dump.json    
+
+To dump that data into Heroku, see the link
+
+    https://www.mongolab.com/databases/heroku_app11534851#importexport
+
+You'll have a command like:
+
+mongoimport -h ds041367.mongolab.com:41367 -d heroku_app11534851 -c players -u [username] -p [password] --file resources/dump.json
 
 ## Changing Data Source
 
