@@ -54,6 +54,65 @@ app.get('/update', function(req, res){
     res.end('Updated:'+JSON.stringify(result)+'\n');
 });
 
+app.get('/rank', function(req, res){
+  fs.readFile(__dirname + '/rank.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html');
+    } else {
+      res.writeHead(200);
+      res.end(data);
+      // do db query and get ranked users
+      
+      if (!db) {
+        // Local testing mode:
+        player0 = {
+          name: playerName,
+          image1 : "/players/ajjenkingsnew.jpg",
+          image2 : "/players/ajjenkingsold.jpg",
+          voteYes : 2,
+          voteNo : 1
+        };
+        player1 = {
+          name: playerName,
+          image1 : "/players/ajjenkingsnew.jpg",
+          image2 : "/players/ajjenkingsold.jpg",
+          voteYes : 4,
+          voteNo : 1
+        };
+        player2 = {
+          name: playerName,
+          image1 : "/players/ajjenkingsnew.jpg",
+          image2 : "/players/ajjenkingsold.jpg",
+          voteYes : 2,
+          voteNo : 2
+        };
+        result = [player0, player1, player3];
+
+        sortRank(result, function(sortedResult) {
+          io.sockets.emit('rank', { data: sortedResult });
+        });
+      } else {
+        db.collection('things').findOne({name: playerName}, function(error, result) {
+          if( error ) {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Error with db get!\n');
+          } else {
+            // Print rankings!
+            
+            // TODO: What is the correct sort?
+            
+            sortRank(result, function(sortedResult) {
+              io.sockets.emit('rank', { data: sortedResult });
+            });
+          }
+        });
+      }
+    }
+  });
+});
+
 app.get('/', function(req, res){
   fs.readFile(__dirname + '/index.html',
   function (err, data) {
@@ -216,3 +275,10 @@ function onPlayersReceived(model) {
         update(playerName);
     }
 };
+
+function sortRank(result, callback ) {
+  // TODO: Rank is broken
+  for (var i in result) {
+    alert(result[i]);
+  }
+}
