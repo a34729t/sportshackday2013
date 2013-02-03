@@ -7,38 +7,9 @@ var express = require('express');
 var app = express.createServer();
 var io = require('socket.io').listen(app)
 var fs = require('fs');
-var mongo = require('mongodb');
 var parser = require('./liveDataParser.js');
 var config = require('./config'); // global vars and that kind of stuff
-
-// <MongoDB Stuff>
-
-// To use mongodb on heroku:
-//  see: https://devcenter.heroku.com/articles/nodejs#using-mongodb
-var mongoUri = process.env.MONGOLAB_URI || 
-              process.env.MONGOHQ_URL || 
-              'mongodb://127.0.0.1/player_info/';
-
-// We make a global var testData for the test data
-var db;
-console.log(mongoUri)
-mongo.Db.connect(mongoUri, function (err, dbHandle) {
-  if (err) console.log("mongo err");
-      db = dbHandle;
-/*  dbHandle.collection("players", function(err, collection){
-
-   collection.find().count(function(e, count){
-      console.log(count);
-     });
-  });
-*/
-  //console.log(db.collection('players').count())
-});
-
-
-
-// </MongoDB Stuff>
-  
+var dblayer = require('./dblayer'); //  db access layer  
 
 // <Express>
 
@@ -202,43 +173,45 @@ io.sockets.on('connection', function(socket){
   io.sockets.emit('count', { numclients: numclients });
   
   socket.on('vote', function(data) {
+    var playerName = data.id;
+    
     //console.log('Client just sent:', data);
-    if (!db) {
+    if (!dblayer.db) {
       // Local testing mode:
       console.log("data.bigger="+data.bigger);
       if (data.bigger) {
-        if (data.id in player2VoteYes)
-          player2VoteYes[data.id] += 1;
+        if (playerName in player2VoteYes)
+          player2VoteYes[playerName] += 1;
         else
-          player2VoteYes[data.id] = 1
-        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[data.id] });
+          player2VoteYes[playerName] = 1
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[playerName] });
       } else {
-        if (data.id in player2VoteNo) {
-          player2VoteNo[data.id] += 1;
+        if (playerName in player2VoteNo) {
+          player2VoteNo[playerName] += 1;
         } else {
-          player2VoteNo[data.id] = 1
+          player2VoteNo[playerName] = 1
         }
-        console.log("player2VoteNo = ", player2VoteNo[data.id]);
-        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteNo[data.id] });
+        console.log("player2VoteNo = ", player2VoteNo[playerName]);
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteNo[playerName] });
       }
       
     } else {
       if (data.bigger) {
-        db.collection(config.collectionName).update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
-        if (data.id in player2VoteYes)
-          player2VoteYes[data.id] += 1;
+        dblayer.updateYesVote(playerName, function(err){});
+        if (playerName in player2VoteYes)
+          player2VoteYes[playerName] += 1;
         else
-          player2VoteYes[data.id] = 1
-        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[data.id] });
+          player2VoteYes[playerName] = 1
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[playerName] });
       } else {
-        db.collection(config.dbName).update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
-        if (data.id in player2VoteNo) {
-          player2VoteNo[data.id] += 1;
+        dblayer.updateNoVote(playerName, function(err){});
+        if (playerName in player2VoteNo) {
+          player2VoteNo[playerName] += 1;
         } else {
-          player2VoteNo[data.id] = 1
+          player2VoteNo[playerName] = 1
         }
-        console.log("player2VoteNo = ", player2VoteNo[data.id]);
-        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteNo[data.id] });
+        console.log("player2VoteNo = ", player2VoteNo[playerName]);
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteNo[playerName] });
       }
     }
   }); 
