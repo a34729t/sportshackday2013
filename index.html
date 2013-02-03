@@ -36,8 +36,15 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <script>
         $(document).ready(function() {
+            
+            if (!$.cookie('superbowl_visit')) {
+                alert('show splah');
+                $.cookie('superbowl_visit', 'true', { expires: 2 });
+            };
+
             var socket = io.connect();
             socket.on('update', function (data) {
                 console.log(data.name);
@@ -72,7 +79,7 @@
                     id: $('#playerName').html()
                 })
             });
-            
+
             $("#yes-btn").click(function() {
               $('#vote-cont').slideUp('slow', function() {});
             });
