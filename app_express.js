@@ -60,9 +60,10 @@ app.get('/', function(req, res){
     if (err) {
       res.writeHead(500);
       return res.end('Error loading index.html');
+    } else {
+      res.writeHead(200);
+      res.end(data);
     }
-    res.writeHead(200);
-    res.end(data);
   });
 });
 
@@ -105,6 +106,9 @@ io.configure(function () {
     io.set("polling duration", 10); 
 });
 
+var player2VoteYes = {}
+var player2VoteNo = {}
+
 var numclients = 0; // Note: Socket.io client timeouts are 25 seconds by default
 io.sockets.on('connection', function(socket){
   socket.emit('news', { hello: 'world' });
@@ -116,11 +120,39 @@ io.sockets.on('connection', function(socket){
     if (!db) {
       // Local testing mode:
       console.log("data.bigger="+data.bigger);
+      if (data.bigger) {
+        if (data.id in player2VoteYes)
+          player2VoteYes[data.id] += 1;
+        else
+          player2VoteYes[data.id] = 1
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[data.id] });
+      } else {
+        if (data.id in player2VoteNo) {
+          player2VoteNo[data.id] += 1;
+        } else {
+          player2VoteNo[data.id] = 1
+        }
+        console.log("player2VoteNo = ", player2VoteNo[data.id]);
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteNo[data.id] });
+      }
+      
     } else {
       if (data.bigger) {
         db.collection('things').update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+        if (data.id in player2VoteYes)
+          player2VoteYes[data.id] += 1;
+        else
+          player2VoteYes[data.id] = 1
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[data.id] });
       } else {
         db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
+        if (data.id in player2VoteNo) {
+          player2VoteNo[data.id] += 1;
+        } else {
+          player2VoteNo[data.id] = 1
+        }
+        console.log("player2VoteNo = ", player2VoteNo[data.id]);
+        io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteNo[data.id] });
       }
     }
   }); 

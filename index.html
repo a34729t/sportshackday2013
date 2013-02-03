@@ -18,6 +18,7 @@
 
     <!-- CSS
   ================================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="stylesheets/base.css">
     <link rel="stylesheet" href="stylesheets/skeleton.css">
     <link rel="stylesheet" href="stylesheets/layout.css">
@@ -47,6 +48,15 @@
                 $('#playerName').html(data.name);
             });
             
+            socket.on('updateVote', function (data) {
+                // TODO: Check player name is the same for update vote?
+                console.log('updateVote: '+data.bigger+'->'+data.count);
+                if (data.bigger)
+                    $('#vote-yes-count').html(data.count); // Yes Vote
+                else
+                    $('#vote-no-count').html(data.count); // No Vote
+            });
+            
             socket.on('count', function (data) {
                 console.log(data.name);
                 $('#numclients').html(data.numclients);
@@ -65,32 +75,26 @@
 </head>
 <body>
 
-
-
     <!-- Primary Page Layout
     ================================================== -->
 
     <!-- Delete everything in this .container and get started on your own site! -->
 
     <div class="container">
-        <div class="sixteen columns">
-            <h1 class="remove-bottom" style="margin-top: 40px">Juicy</h1>
-            <br>
-            <div>
-                <img src="" id="image1">
-                <img src="" id="image2">
-            </div>
-            <div>
-                <span id="playerName"></span>
-            </div>
-            <div>
-                <h3 class="remove-bottom" style="margin-top: 40px">Juiced or Not?</h3>
-                <span class="js-vote button" data-bigger='true'>YES</span>
-                <span class="js-vote button" data-bigger='false'>NO</span>
-            </div>
+        <div id="title">
+            is <span id="playerName"></span>
+            <h1> Juiced or Not?</h1>
+        </div>
+        <div id="pictures">
+            <img src="" id="image1">
+            <img src="" id="image2">
+        </div>
+        <div>
+            <h3 class="remove-bottom" style="margin-top: 40px">Juiced or Not?</h3>
+            <span class="js-vote button" data-bigger='true'>YES</span>
+            <span class="js-vote button" data-bigger='false'>NO</span>
         </div>
     </div><!-- container -->
-
 
 <!-- End Document
 ================================================== -->
