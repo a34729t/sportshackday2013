@@ -81,7 +81,9 @@
             });
 
             $("#yes-btn").click(function() {
-              $('#vote-cont').slideUp('slow', function() {});
+              
+              $('#no-btn').fadeTo('slow', 0.1, function() {});
+              $("#yes-btn").button("disable");
             });
 
             $("#no-btn").click(function() {
@@ -101,16 +103,17 @@
             <span><span class="picture-label">then</span><img src="" id="image1"></span>
             <span><span class="picture-label">now</span><img src="" id="image2"></span>
         </div>
-        <div id="">
+        <div id="submission-cont">
             <div id="vote-cont">
                 <span id="yes-btn" class="js-vote button" data-bigger='true'>YES</span>
                 <span id="no-btn" class="js-vote button" data-bigger='false'>NO</span>
             </div>
         </div>
         <div id="count-cont">
-            yes votes <span id="vote-yes-count">0</span> |
-            <span id="vote-no-count">0</span> |
-            <span id="numclients"></span> judges online now
+            Yes Votes: <span id="vote-yes-count">0</span> - 
+            No Votes: <span id="vote-no-count">0</span>
+            <br />
+            <span id="numclients"></span> Users Online
         </div>
     </div><!-- container -->
 
