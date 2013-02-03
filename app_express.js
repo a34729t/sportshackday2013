@@ -196,6 +196,7 @@ io.sockets.on('connection', function(socket){
       }
       
     } else {
+      console.log("Voted: data.bigger="+data.bigger);
       if (data.bigger) {
         dblayer.updateYesVote(playerName, function(err){});
         if (playerName in player2VoteYes)
@@ -255,15 +256,21 @@ function update(playerName, callback) {
               var lowerName = result.name_full.toLowerCase().replace(' ', ''); 
               
               console.log("update player db data: "+ JSON.stringify(result));
-              console.log("");
+              
               
               var voteYes = 0;
-              if (voteYes in result)
+              if ('voteYes' in result) {
                 voteYes = result.voteYes;
+              }
                 
               var voteNo = 0;
-              if (voteNo in result)
+              if ('voteNo' in result) {
                 voteNo = result.voteNo;
+              }
+              
+              console.log("voteYes="+voteYes+" ,result.voteYes="+result.voteYes);
+              console.log("voteNo="+voteNo+" ,result.voteNo="+result.voteNo);
+              console.log("");
               
 
                 var model = {
