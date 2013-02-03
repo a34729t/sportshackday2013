@@ -131,3 +131,19 @@ function update(playerName) {
         });
     }
 };
+
+setInterval(function() {
+    console.log('updating!');
+    parser.getLastPlayer(onPlayersReceived);
+}, 10000);
+
+function onPlayersReceived(model) {
+    var isNewPlay = true;
+
+    if(isNewPlay) {
+        var playerName = model.players[0].name;
+        console.log('updating to ' + playerName);
+
+        update(playerName);
+    }
+};
