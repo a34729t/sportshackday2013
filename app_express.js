@@ -9,6 +9,7 @@ var app = express.createServer();
 var io = require('socket.io').listen(app)
 var fs = require('fs');
 var mongo = require('mongodb');
+var parser = require('./liveDataParser.js');
 
 // <MongoDB Stuff>
 
@@ -35,40 +36,24 @@ app.use(function(req, res, next){
   console.log('%s %s', req.method, req.url);
   next();
 });
+app.get('/setDataSource', function(req, res) {
+    if(req.query.useTest == 'true')
+        parser.setTest(req.query.useTest);
+
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Updated to : ' + (req.query.useTest == 'true' ? 'test' : 'production'));
+});
+
 app.get('/update', function(req, res){
-  // Dumb Attempt: Fetch Joe Flacco from MongoDB
-  
-  if (!db) {
-    // Local testing mode:
-    result = {
-      name: "Joe Flacco", 
-      image1 : "http://placekitten.com/202/300", 
-      image2 : "http://placekitten.com/204/300", 
-      voteYes : 0, 
-      voteNo : 0
-    };
-    io.sockets.emit('update', result);
+    if("playerName" in req.query)
+        update(req.query.playerName);
+    else
+        update("Joe Flacco");
+
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Updated:'+JSON.stringify(result)+'\n');
-  } else {
-    var findName = "Joe Flacco";
-    db.collection('things').findOne({name: findName}, function(error, result) {
-      if( error ) {
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('Error with db get!\n');
-      }
-      else {
-        // Update all clients with data
-        result.numclients = numclients; // not necessary
-        io.sockets.emit('update', result);
-      
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('Updated:'+JSON.stringify(result)+'\n');
-      }
-    });
-  } 
-  
 });
+
 app.get('/', function(req, res){
   fs.readFile(__dirname + '/index.html',
   function (err, data) {
@@ -116,3 +101,49 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('count', { numclients: numclients });
   }); 
 });
+
+function update(playerName) {
+    // Dumb Attempt: Fetch Joe Flacco from MongoDB
+
+    if (!db) {
+        // Local testing mode:
+        result = {
+            name: playerName,
+            image1 : "http://placekitten.com/202/300",
+            image2 : "http://placekitten.com/204/300",
+            voteYes : 0,
+            voteNo : 0
+        };
+        io.sockets.emit('update', result);
+    } else {
+        db.collection('things').findOne({name: playerName}, function(error, result) {
+            if( error ) {
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.end('Error with db get!\n');
+            }
+            else {
+                // Update all clients with data
+                result.numclients = numclients; // not necessary
+                io.sockets.emit('update', result);
+
+
+            }
+        });
+    }
+};
+
+setInterval(function() {
+    console.log('updating!');
+    parser.getLastPlayer(onPlayersReceived);
+}, 10000);
+
+function onPlayersReceived(model) {
+    var isNewPlay = true;
+
+    if(isNewPlay) {
+        var playerName = model.players[0].name;
+        console.log('updating to ' + playerName);
+
+        update(playerName);
+    }
+};
