@@ -253,7 +253,7 @@ function update(playerName, callback) {
       
                 if(result!=null){// Update all clients with data      
               //  result.numclients = numclients; // not necessary
-              var lowerName = result.name_full.toLowerCase().replace(' ', ''); 
+              var lowerName = result.name_full.toLowerCase().replace(/ /g, '');
               
               console.log("update player db data: "+ JSON.stringify(result));
               
