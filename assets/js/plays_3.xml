@@ -52,7 +52,7 @@
       </play>
       <play id="6f7ecbab-1e14-4b89-9fc4-961cb36ab9d7" clock=":57" type="kick" sequence="167" updated="2012-12-21T03:31:23+00:00" side="NYG" yard_line="35">
         <participants>
-          <player id="97cebfd1-f7d0-4fc7-b3d8-6d2308e992e3" name="Randy Moss" jersey="9" position="K" team="NYG"/>
+          <player id="97cebfd1-f7d0-4fc7-b3d8-6d2308e992e3" name="Ray Lewis" jersey="9" position="K" team="NYG"/>
           <player id="2bb70d56-a79a-4fa1-ae37-99858a3ffd55" name="Julian Edelman" jersey="11" position="WR" team="NE"/>
         </participants>
         <summary>9-L.Tynes kicks 30 yards from NYG 35. 11-J.Edelman to NE End Zone. 11-J.Edelman, touchback.</summary>
