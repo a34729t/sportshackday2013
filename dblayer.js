@@ -48,6 +48,13 @@ function updateAppearances (playerName, callback) {
   });
 }
 
+// Reset app - zero appearances and votes
+function resetAppearancesAndVotes (callback) {
+  db.collection(config.collectionName).update({}, { appearances: 0, votesYes: 0, votesNo: 0 } }, {safe:true}, function(err, result) {
+    callback(error);
+  });
+}
+
 exports.db;
 exports.updateYesVote;
 exports.updateNoVote;
