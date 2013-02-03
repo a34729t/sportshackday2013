@@ -112,6 +112,18 @@ body {
 	color: #999;
 }
 
+#vote-yes-count {
+	color: #cb4343;
+	font-size: 30px;
+}
+
+
+#vote-no-count {
+	color: #558d14;
+	font-size: 30px;
+}
+
+
 
 /* #Page Styles
 ================================================== */

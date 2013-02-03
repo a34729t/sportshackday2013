@@ -44,7 +44,7 @@
                 alert('show splah');
                 $.cookie('superbowl_visit', 'true', { expires: 2 });
             } else {
-                
+                $('#splash').hide();
             };
 
             var socket = io.connect();
@@ -99,18 +99,18 @@
         <!-- Splash BEGINS -->
         <div id="splash">
             <div>Welcome to <h1>Juiced or Not</h1>
-            <p>the worlds <u>first</u> and <u>only</u> crowdsourcing platform to judge potential juicing athelets</p>
+            <p>the world's <u>first</u> and <u>only</u> crowdsourcing platform judging potential juicing athelets</p>
             </div>
             <div>
                 <h2>HOW IT WORKS</h2>
                 <p>1) Visit this web app during a game</p>
-                <p>2) After every play, we serve up before and after head photos of one of the players involved in the play</p>
-                <p>3) Judge the sh%t out of the player and cast your vote</p>
-                <p>4) Realtime updates show you how judgemental everyone else is</p>
+                <p>2) After every play, we serve up two different photos of a player involved in the play</p>
+                <p>3) Judge the sh!t out of the player based on whether or not their head mass has changed and cast your vote</p>
+                <p>4) Realtime updates show you how judgmental everyone else is</p>
             </div>
             <div>
                 <h2>WHY THIS APP EXISTS</h2>
-                <p>Because kittehs don't like juicers</p>
+                <p>Because kittens don't like juicers</p>
             </div>
         </div>
         <!-- Splash ENDS -->
