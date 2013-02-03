@@ -61,7 +61,7 @@ app.get('/rank', function(req, res){
       res.end(data);
       // do db query and get ranked users
       
-      if (!db) {
+      if (!dblayer.db) {
         // Local testing mode:
         player0 = {
           name: playerName,
@@ -225,7 +225,7 @@ io.sockets.on('connection', function(socket){
 function update(playerName, callback) {
     // Dumb Attempt: Fetch Joe Flacco from MongoDB
 
-    if (!db) {
+    if (!dblayer.db) {
         // Local testing mode:
         var result = {
             name: playerName,
