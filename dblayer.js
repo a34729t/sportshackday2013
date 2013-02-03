@@ -36,7 +36,20 @@ function updateNoVote (playerName, callback) {
   });
 }
 
+function findPlayer (playerName, callback) {
+  db.collection(config.collectionName).findOne({name_full: playerName}, function(error, result) {
+    callback(error, result);
+  });
+}
 
-exports.db; // TODO: rename to conn
+function updateAppearances (playerName, callback) {
+  db.collection(config.collectionName).update({name_full: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {
+    callback(error);
+  });
+}
+
+exports.db;
 exports.updateYesVote;
 exports.updateNoVote;
+exports.findPlayer;
+exports.updateAppearances;

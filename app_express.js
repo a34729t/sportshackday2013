@@ -227,7 +227,7 @@ function update(playerName, callback) {
 
     if (!db) {
         // Local testing mode:
-        result = {
+        var result = {
             name: playerName,
             image1 : "/players/ajjenkinsnew.png",
             image2 : "/players/ajjenkinsold copy.png",
@@ -244,8 +244,7 @@ function update(playerName, callback) {
         io.sockets.emit('update', result);
         return null;
     } else {
-  
-        db.collection(config.collectionName).findOne({name_full: playerName}, function(error, result) {
+        dblayer.findPlayer(playerName, function(err, result){
             if( error ) {
                 return (error);
             }
@@ -266,7 +265,7 @@ function update(playerName, callback) {
                 io.sockets.emit('update', model);
                 
                 // increment player's appearance count in db
-                db.collection(config.collectionName).update({name_full: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {});
+                dblayer.updateAppearances(playerName, function(err){});
               }
                 return null;
             }
