@@ -2,20 +2,26 @@ var fs = require('fs'),
 xml2js = require('xml2js');
 var http = require('http');
 var test = false;
+var sourceUrl = 'http://api.sportsdatallc.org/nfl-t1/2011/PST/4/NYG/NE/pbp.xml?api_key=4w4fdbpap45bsmmtx4qkghv5';
 
 exports.setTest = function(useTest) {
     test = useTest;
-}
-exports.getLastPlayer = function(callback) {
-    if(test) {
-        var options = { host: 'api.sportsdatallc.org',
-        path: '/nfl-t1/2011/PST/3/NYG/SF/pbp.xml?api_key=yxz2mbqm2xgvfgvpskuybpdn'};
-    } else {
-        var options = { host: 'api.sportsdatallc.org',
-        path: '/nfl-t1/2011/PST/4/NYG/NE/pbp.xml?api_key=yxz2mbqm2xgvfgvpskuybpdn'};
-    }
 
-    var request = http.get(options);
+}
+
+exports.setSource = function(newUrl) { 
+    sourceUrl = newUrl;
+    console.log("Changing Source");
+};
+
+
+exports.getLastPlayer = function(callback) {
+
+    //options = host: 'api.sportsdatallc.org',
+      //  path: '/nfl-t1/2011/PST/4/NYG/NE/pbp.xml?api_key=4w4fdbpap45bsmmtx4qkghv5'};
+
+    var request = http.get(sourceUrl);
+    console.log("Fetching from source URL...")
     request.on('response', function (response) {
         var body = '';
         response.on('data', function (chunk) {

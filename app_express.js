@@ -65,8 +65,37 @@ app.get('/', function(req, res){
     res.end(data);
   });
 });
+
+//set source 
+app.get('/setSource', function(req, res){
+  fs.readFile(__dirname + '/setSource.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html');
+    }
+    res.writeHead(200);
+    res.end(data);
+  });
+});
+
+app.post('/saveSource', express.bodyParser(), function(req, res){
+  //var u = req.param('url', null);
+  console.log(req.body);
+  parser.setSource(req.body.url);
+  res.contentType('json');
+  res.send({});
+
+  //res.body.url 
+});
+
+
 app.use(express.static(__dirname + '/assets'));
 app.listen(config.port);
+
+
+
+
 
 // <Express>
 
