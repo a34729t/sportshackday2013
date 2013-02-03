@@ -99,7 +99,7 @@
       </event>
       <play id="a145ff7b-c724-4038-aca1-7523c622c370" clock=":39" type="pass" sequence="172" updated="2012-12-21T03:32:14+00:00" side="NE" yard_line="14" down="4" yfd="16">
         <participants>
-          <player id="41c44740-d0f6-44ab-8347-3b5d515e5ecf" name="Tom Brady" jersey="12" position="QB" team="NE"/>
+          <player id="41c44740-d0f6-44ab-8347-3b5d515e5ecf" name="Patrick Willis" jersey="12" position="QB" team="NE"/>
           <player id="76346643-3fc7-410e-a8f7-ca4c0ae12d83" name="Deion Branch" jersey="84" position="WR" team="NE"/>
           <player id="ed8fdad4-b43e-4232-b0de-c579d5348286" name="Corey Webster" jersey="23" position="CB" team="NYG"/>
         </participants>
