@@ -25,13 +25,15 @@ mongo.Db.connect(mongoUri, function (err, dbHandle) {
 
 
 exports.updateYesVote =function (playerName, callback) {
-  db.collection(config.collectionName).update({name: playerName}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {
+  console.log("updateYesVote for "+ playerName);
+  db.collection(config.collectionName).update({name_full: playerName}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {
     callback(err);
   });
 }
 
 exports.updateNoVote =function (playerName, callback) {
-  db.collection(config.collectionName).update({name: playerName}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {
+  console.log("updateNoVote for "+ playerName);
+  db.collection(config.collectionName).update({name_full: playerName}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {
     callback(err);
   });
 }
