@@ -60,9 +60,10 @@ app.get('/', function(req, res){
     if (err) {
       res.writeHead(500);
       return res.end('Error loading index.html');
+    } else {
+      res.writeHead(200);
+      res.end(data);
     }
-    res.writeHead(200);
-    res.end(data);
   });
 });
 app.use(express.static(__dirname + '/assets'));
