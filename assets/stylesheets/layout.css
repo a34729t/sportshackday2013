@@ -22,6 +22,11 @@ body {
 	text-align: center;
 }
 
+h1 {
+	font-size: 24px;
+	line-height: 100%;
+}
+
 /* #Page Styles
 ================================================== */
 
@@ -41,7 +46,11 @@ body {
 	@media only screen and (min-width: 480px) and (max-width: 767px) {}
 
 	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-	@media only screen and (max-width: 479px) {}
+	@media only screen and (max-width: 479px) {
+		img {
+			max-width: 140px;
+		}
+	}
 
 
 /* #Font-Face
