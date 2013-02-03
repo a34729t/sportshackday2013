@@ -10,6 +10,7 @@ var io = require('socket.io').listen(app)
 var fs = require('fs');
 var mongo = require('mongodb');
 var parser = require('./liveDataParser.js');
+var config = require('./config'); // global vars and that kind of stuff
 
 // <MongoDB Stuff>
 
@@ -135,7 +136,7 @@ function update(playerName) {
 setInterval(function() {
     console.log('updating!');
     parser.getLastPlayer(onPlayersReceived);
-}, 10000);
+}, config.updateInterval);
 
 function onPlayersReceived(model) {
     var isNewPlay = true;
