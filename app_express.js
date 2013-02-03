@@ -2,7 +2,6 @@
 // Present users with a vote page with two pictures of player, and the results
 // of the previous poll. We use socket.io to handle browser push.
 
-var port = process.env.PORT || 8000;
 var url = require('url');
 var express = require('express');
 var app = express.createServer();
@@ -67,7 +66,7 @@ app.get('/', function(req, res){
   });
 });
 app.use(express.static(__dirname + '/assets'));
-app.listen(port);
+app.listen(config.port);
 
 // <Express>
 
