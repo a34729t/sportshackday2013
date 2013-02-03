@@ -48,6 +48,7 @@
                 $('#playerName').html(data.name);
                 $('#vote-yes-count').html(data.voteYes);
                 $('#vote-no-count').html(data.voteNo);
+                $('#vote-cont').slideDown('slow', function() {});
             });
             
             socket.on('updateVote', function (data) {
@@ -71,17 +72,19 @@
                     id: $('#playerName').html()
                 })
             });
+            
+            $("#yes-btn").click(function() {
+              $('#vote-cont').slideUp('slow', function() {});
+            });
+
+            $("#no-btn").click(function() {
+              $('#vote-cont').slideUp('slow', function() {});
+            });
         });
     </script>
 
 </head>
 <body>
-
-    <!-- Primary Page Layout
-    ================================================== -->
-
-    <!-- Delete everything in this .container and get started on your own site! -->
-
     <div class="container">
         <div id="title">
             <span id="playerName"></span>
@@ -96,8 +99,9 @@
             <span id="no-btn" class="js-vote button" data-bigger='false'>NO</span>
         </div>
         <div id="count-cont">
-            <span id="vote-yes-count">0</span>
-            <span id="vote-no-count">0</span>
+            yes votes <span id="vote-yes-count">0</span> |
+            <span id="vote-no-count">0</span> |
+            <span id="numclients"></span> judges online now
         </div>
     </div><!-- container -->
 

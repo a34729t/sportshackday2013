@@ -40,7 +40,7 @@ exports.getLastPlayer = function(callback) {
                 model.playId = lastPlay.$.id;
                 model.players = new Array();
                 for(var i = 0; i < participants.player.length; i++) {
-                    console.log(participants.player[i].$);
+                    //console.log(participants.player[i].$);
                     model.players[i] = participants.player[i].$;
                 }
 

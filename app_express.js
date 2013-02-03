@@ -265,15 +265,18 @@ setInterval(function() {
     parser.getLastPlayer(onPlayersReceived);
 }, config.updateInterval);
 
+var lastPlay = "";
 function onPlayersReceived(model) {
-    var isNewPlay = true;
 
-    if(isNewPlay) {
-        var playerName = model.players[0].name;
-        console.log('updating to ' + playerName);
+    if(model.playId == lastPlay)
+        return;
 
-        update(playerName);
-    }
+    lastPlay = model.playId
+
+    var playerName = model.players[0].name;
+    console.log('updating to ' + playerName);
+
+    update(playerName);
 };
 
 function sortRank(result, callback ) {
