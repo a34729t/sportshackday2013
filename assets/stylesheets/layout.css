@@ -31,17 +31,21 @@ body {
 }
 
 #title h1 {
-	font-size: 24px;
+	font-size: 26px;
 	line-height: 100%;
 	margin-top: 10px;
 	margin-bottom: 0px; 
-	color: #eee;
+	color: #82d5f8;
 	font-family: 'Nosifer', cursive;
 }
 
 #playerName {
 	color: #e8e983;
 	font-weight: bold;
+}
+
+#pictures img {
+	vertical-align:text-top;
 }
 
 /* #Page Styles
