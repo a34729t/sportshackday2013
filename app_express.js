@@ -195,7 +195,9 @@ var player2VoteNo = {}
 
 var numclients = 0; // Note: Socket.io client timeouts are 25 seconds by default
 io.sockets.on('connection', function(socket){
-  socket.emit('news', { hello: 'world' });
+  startUpdate();
+
+  socket.emit('update', lastModel);
   numclients++;
   io.sockets.emit('count', { numclients: numclients });
   
@@ -254,8 +256,8 @@ function update(playerName, callback) {
         // Local testing mode:
         result = {
             name: playerName,
-            image1 : "/players/ajjenkingsnew.jpg",
-            image2 : "/players/ajjenkingsold.jpg",
+            image1 : "/players/ajjenkinsnew.png",
+            image2 : "/players/ajjenkinsold copy.png",
             voteYes : 0,
             voteNo : 0
         };
@@ -264,7 +266,8 @@ function update(playerName, callback) {
           result.voteYes = player2VoteYes[playerName];
         if (playerName in player2VoteNo)
           result.voteNo = player2VoteNo[playerName];
-            
+
+        lastModel = result;
         io.sockets.emit('update', result);
         return null;
     } else {
@@ -298,21 +301,23 @@ function update(playerName, callback) {
     }
 };
 
-setInterval(function() {
+setInterval(startUpdate, config.updateInterval);
+
+function startUpdate() {
     console.log('updating!');
     console.log('player2VoteYes:'+JSON.stringify(player2VoteYes));
     console.log('player2VoteNo:'+JSON.stringify(player2VoteNo));
     parser.getLastPlayer(onPlayersReceived);
-}, config.updateInterval);
+};
 
 var lastPlay = "";
+var lastModel = {};
 function onPlayersReceived(model) {
 
     if(model.playId == lastPlay)
         return;
 
     lastPlay = model.playId
-
     var playerName = model.players[0].name;
     console.log('updating to ' + playerName);
 
