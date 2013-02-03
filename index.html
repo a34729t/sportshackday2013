@@ -46,12 +46,9 @@
                 $('#image1').attr('src', data.image1);
                 $('#image2').attr('src', data.image2)
                 $('#playerName').html(data.name);
-<<<<<<< HEAD
                 $('#vote-yes-count').html(data.voteYes);
                 $('#vote-no-count').html(data.voteNo);
-=======
                 $('#vote-cont').slideDown('slow', function() {});
->>>>>>> button hide transition after vote
             });
             
             socket.on('updateVote', function (data) {
