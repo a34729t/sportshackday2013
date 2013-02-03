@@ -45,13 +45,27 @@ app.get('/setDataSource', function(req, res) {
 });
 
 app.get('/update', function(req, res){
-    if("playerName" in req.query)
-        update(req.query.playerName);
-    else
-        update("Joe Flacco");
-
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Updated:'+JSON.stringify(result)+'\n');
+    if("playerName" in req.query) {
+        update(req.query.playerName, function(err) {
+          if (!err) {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Updated:'+JSON.stringify(result)+'\n');
+          } else {
+            res.writeHead(500, {'Content-Type': 'text/plain'});
+            res.end('Update error:'+err+'\n');
+          }
+        });
+    } else {
+        update("Joe Flacco", function(err) {
+          if (!err) {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Updated:'+JSON.stringify(result)+'\n');
+          } else {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Update error:'+err+'\n');
+          }
+        });
+    }
 });
 
 app.get('/rank', function(req, res){
@@ -222,7 +236,7 @@ io.sockets.on('connection', function(socket){
   }); 
 });
 
-function update(playerName) {
+function update(playerName, callback) {
     // Dumb Attempt: Fetch Joe Flacco from MongoDB
 
     if (!db) {
@@ -241,18 +255,20 @@ function update(playerName) {
           result.voteNo = player2VoteNo[playerName];
             
         io.sockets.emit('update', result);
+        return null;
     } else {
         db.collection('things').findOne({name: playerName}, function(error, result) {
             if( error ) {
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end('Error with db get!\n');
+                return (error);
             }
             else {
                 // Update all clients with data
                 result.numclients = numclients; // not necessary
                 io.sockets.emit('update', result);
-
-
+                
+                // increment player's appearance count in db
+                db.collection('things').update({name: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {});
+                return null;
             }
         });
     }
