@@ -22,6 +22,28 @@ body {
 	text-align: center;
 }
 
+#splash {
+	background-color: rgba(0,0,0,0.7);
+	padding: 10px 5px 9px 5px;
+	margin-bottom: 10px;
+	color: #eee;
+	font-size: 14px;
+}
+
+#splash h1 {
+	font-size: 26px;
+	line-height: 100%;
+	margin-top: 10px;
+	margin-bottom: 0px; 
+	color: #82d5f8;
+	font-family: 'Nosifer', cursive;
+}
+
+#splash h2 {
+	font-size: 17px;
+	color: #fff; 
+}
+
 #title {
 	background-color: rgba(0,0,0,0.7);
 	padding: 10px 5px 9px 5px;
@@ -48,6 +70,14 @@ body {
 	vertical-align:text-top;
 }
 
+#submission-cont {
+	height: 65px;
+	margin-top: 10px;
+}
+
+#vote-cont {
+}
+
 .button {
 	padding: 5px 15px 5px 15px;
 	font-size: 24px;
@@ -64,21 +94,24 @@ body {
 	margin-left: 5px;
 }
 
-#vote-cont {
-	margin-top: 10px;
-}
-
 #count-cont {
 	background-color: rgba(0,0,0,0.7);
 	color: #fff;
+	padding-top: 4px;
+}
+
+#count-cont h4 {
+	color: #82d5f8;
 }
 
 .picture-label {
 	position: absolute;
-	background-color: rgba(219,219,219,0.7);
+	background-color: rgba(219,219,219,0.3);
 	padding: 3px;
 	width: 40px;
+	color: #999;
 }
+
 
 /* #Page Styles
 ================================================== */
