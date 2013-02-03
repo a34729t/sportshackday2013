@@ -258,9 +258,8 @@ function update(playerName, callback) {
                   name: result.name_full,
                   image1: "/players/" + lowerName + "new.png",
                   image2: "/players/" + lowerName + "old.png"
-
-
                 };
+                lastModel = model;
                 console.log(model);
                 io.sockets.emit('update', model);
                 
