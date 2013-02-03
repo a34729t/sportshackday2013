@@ -55,7 +55,8 @@
                 $('#playerName').html(data.name);
                 $('#vote-yes-count').html(data.voteYes);
                 $('#vote-no-count').html(data.voteNo);
-                $('#vote-cont').slideDown('slow', function() {});
+                $('#yes-btn').fadeTo('slow', 1, function() {});
+                $('#no-btn').fadeTo('slow', 1, function() {});
             });
             
             socket.on('updateVote', function (data) {
@@ -81,13 +82,11 @@
             });
 
             $("#yes-btn").click(function() {
-              
-              $('#no-btn').fadeTo('slow', 0.1, function() {});
-              $("#yes-btn").button("disable");
+              $('#no-btn').fadeTo('slow', 0, function() {});
             });
 
             $("#no-btn").click(function() {
-              $('#vote-cont').slideUp('slow', function() {});
+              $('#yes-btn').fadeTo('slow', 0, function() {});
             });
         });
     </script>
