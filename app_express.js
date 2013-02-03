@@ -253,11 +253,26 @@ function update(playerName, callback) {
                 if(result!=null){// Update all clients with data      
               //  result.numclients = numclients; // not necessary
               var lowerName = result.name_full.toLowerCase().replace(' ', ''); 
+              
+              console.log("update player db data: "+ JSON.stringify(result));
+              console.log("");
+              
+              var voteYes = 0;
+              if (voteYes in result)
+                voteYes = result.voteYes;
+                
+              var voteNo = 0;
+              if (voteNo in result)
+                voteNo = result.voteNo;
+              
 
                 var model = {
                   name: result.name_full,
                   image1: "/players/" + lowerName + "new.png",
-                  image2: "/players/" + lowerName + "old.png"
+                  image2: "/players/" + lowerName + "old.png",
+                  voteYes: voteYes,
+                  voteNo: voteNo,
+                  appearances: result.appearances
                 };
                 lastModel = model;
                 console.log(model);
