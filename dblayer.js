@@ -60,3 +60,4 @@ exports.updateYesVote;
 exports.updateNoVote;
 exports.findPlayer;
 exports.updateAppearances;
+exports.resetAppearancesAndVotes;
