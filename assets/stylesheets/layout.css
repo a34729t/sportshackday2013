@@ -48,6 +48,25 @@ body {
 	vertical-align:text-top;
 }
 
+.button {
+	padding: 5px 15px 5px 15px;
+	font-size: 24px;
+}
+
+#yes-btn {
+	color: #cb4343;
+	margin-right: 5px;
+}
+
+#no-btn {
+	color: #558d14;
+	margin-left: 5px;
+}
+
+#vote-cont {
+	margin-top: 10px;
+}
+
 /* #Page Styles
 ================================================== */
 
