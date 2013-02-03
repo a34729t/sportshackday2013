@@ -39,7 +39,8 @@
     <script src="js/jquery.cookie.js"></script>
     <script>
         $(document).ready(function() {
-            
+            var enabled = false;
+
             if (!$.cookie('superbowl_visit')) {
                 $.cookie('superbowl_visit', 'true', { expires: 2 });
             } else {
@@ -52,6 +53,7 @@
             });
             var socket = io.connect();
             socket.on('update', function (data) {
+                enabled = true;
                 console.log(data.name);
                 socket.emit('my other event', { my:'data' });
                 $('#numclients').html(data.numclients);
@@ -66,7 +68,7 @@
             
             socket.on('updateVote', function (data) {
                 // TODO: Check player name is the same for update vote?
-                console.log('updateVote: '+data.bigger+'->'+data.count);
+                //console.log('updateVote: '+data.bigger+'->'+data.count);
                 if (data.bigger)
                     $('#vote-yes-count').html(data.count); // Yes Vote
                 else
@@ -74,12 +76,13 @@
             });
             
             socket.on('count', function (data) {
-                console.log(data.name);
+                //console.log(data.name);
                 $('#numclients').html(data.numclients);
             });
 
             $('.js-vote').click(function() {
-                console.log($(this).data('bigger'));
+                if(!enabled)
+                    return;
                 socket.emit('vote', {
                     bigger:$(this).data('bigger'),
                     id: $('#playerName').html()
@@ -87,11 +90,15 @@
             });
 
             $("#yes-btn").click(function() {
+                enabled = false;
               $('#no-btn').fadeTo('slow', 0, function() {});
+              $('#yes-btn').fadeTo('slow', 0, function() {});
             });
 
             $("#no-btn").click(function() {
-              $('#yes-btn').fadeTo('slow', 0, function() {});
+                enabled = false;
+                $('#no-btn').fadeTo('slow', 0, function() {});
+                $('#yes-btn').fadeTo('slow', 0, function() {});
             });
         });
     </script>
