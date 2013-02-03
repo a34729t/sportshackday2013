@@ -256,8 +256,8 @@ function update(playerName, callback) {
 
                 var model = {
                   name: result.name_full,
-                  image1: "/players/" + lowerName + "new.png",
-                  image2: "/players/" + lowerName + "old.png"
+                  image1: "/players/" + lowerName + "old.png",
+                  image2: "/players/" + lowerName + "new.png"
                 };
                 lastModel = model;
                 console.log(model);
