@@ -109,8 +109,8 @@ function update(playerName) {
         // Local testing mode:
         result = {
             name: playerName,
-            image1 : "http://placekitten.com/202/300",
-            image2 : "http://placekitten.com/204/300",
+            image1 : "/players/ajjenkingsnew.jpg",
+            image2 : "/players/ajjenkingsold.jpg",
             voteYes : 0,
             voteNo : 0
         };
