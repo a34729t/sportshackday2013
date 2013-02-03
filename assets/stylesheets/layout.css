@@ -22,15 +22,26 @@ body {
 	text-align: center;
 }
 
-h1 {
-	font-size: 24px;
-	line-height: 100%;
-	font-family: 'Nosifer', cursive;
+#title {
 	background-color: rgba(0,0,0,0.7);
 	padding: 10px 5px 9px 5px;
+	margin-bottom: 10px;
 	color: #eee;
+	font-size: 20px;
+}
+
+#title h1 {
+	font-size: 24px;
+	line-height: 100%;
 	margin-top: 10px;
-	margin-bottom: 5px; 
+	margin-bottom: 0px; 
+	color: #eee;
+	font-family: 'Nosifer', cursive;
+}
+
+#playerName {
+	color: #e8e983;
+	font-weight: bold;
 }
 
 /* #Page Styles
