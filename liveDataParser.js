@@ -2,8 +2,9 @@ var fs = require('fs'),
 xml2js = require('xml2js');
 var http = require('http');
 var test = false;
+
 //var sourceUrl = 'http://api.sportsdatallc.org/nfl-t1/2011/PST/4/NYG/NE/pbp.xml?api_key=4w4fdbpap45bsmmtx4qkghv5';
-var sourceUrl = 'http://localhost:8000/js/plays_1.xml'
+var sourceUrl = 'http://juicebowl.herokuapp.com/js/plays_1.xml'
 
 exports.setTest = function(useTest) {
     test = useTest;
