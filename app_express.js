@@ -17,7 +17,7 @@ var config = require('./config'); // global vars and that kind of stuff
 //  see: https://devcenter.heroku.com/articles/nodejs#using-mongodb
 var mongoUri = process.env.MONGOLAB_URI || 
               process.env.MONGOHQ_URL || 
-              'mongodb://127.0.0.1/things';
+              'mongodb://127.0.0.1/' + config.dbName;
 
 // We make a global var testData for the test data
 var db;
@@ -108,7 +108,7 @@ app.get('/rank', function(req, res){
           io.sockets.emit('rank', { data: sortedResult });
         });
       } else {
-        db.collection('things').findOne({name: playerName}, function(error, result) {
+        db.collection(config.dbName).findOne({name: playerName}, function(error, result) {
           if( error ) {
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('Error with db get!\n');
@@ -211,14 +211,14 @@ io.sockets.on('connection', function(socket){
       
     } else {
       if (data.bigger) {
-        db.collection('things').update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+        db.collection(config.dbName).update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
         if (data.id in player2VoteYes)
           player2VoteYes[data.id] += 1;
         else
           player2VoteYes[data.id] = 1
         io.sockets.emit('updateVote', { bigger: data.bigger, count: player2VoteYes[data.id] });
       } else {
-        db.collection('things').update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
+        db.collection(config.dbName).update({name: data.id}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {});
         if (data.id in player2VoteNo) {
           player2VoteNo[data.id] += 1;
         } else {
@@ -257,17 +257,18 @@ function update(playerName, callback) {
         io.sockets.emit('update', result);
         return null;
     } else {
-        db.collection('things').findOne({name: playerName}, function(error, result) {
+        db.collection(config.dbName).findOne({name: playerName}, function(error, result) {
             if( error ) {
                 return (error);
             }
             else {
-                // Update all clients with data
+                if(result!=null){// Update all clients with data
                 result.numclients = numclients; // not necessary
                 io.sockets.emit('update', result);
                 
                 // increment player's appearance count in db
-                db.collection('things').update({name: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {});
+                db.collection(config.dbName).update({name: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {});
+              }
                 return null;
             }
         });
