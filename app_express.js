@@ -61,7 +61,7 @@ app.get('/rank', function(req, res){
       res.end(data);
       // do db query and get ranked users
       
-      if (!dblayer.db) {
+      if (!dblayer.hasDb) {
         // Local testing mode:
         player0 = {
           name: playerName,
@@ -176,7 +176,7 @@ io.sockets.on('connection', function(socket){
     var playerName = data.id;
     
     //console.log('Client just sent:', data);
-    if (!dblayer.db) {
+    if (!dblayer.hasDb) {
       // Local testing mode:
       console.log("data.bigger="+data.bigger);
       if (data.bigger) {
@@ -225,7 +225,7 @@ io.sockets.on('connection', function(socket){
 function update(playerName, callback) {
     // Dumb Attempt: Fetch Joe Flacco from MongoDB
 
-    if (!dblayer.db) {
+    if (!dblayer.hasDb) {
         // Local testing mode:
         var result = {
             name: playerName,
@@ -245,8 +245,8 @@ function update(playerName, callback) {
         return null;
     } else {
         dblayer.findPlayer(playerName, function(err, result){
-            if( error ) {
-                return (error);
+            if( err ) {
+                return (err);
             }
             else { 
       
