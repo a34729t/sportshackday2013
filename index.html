@@ -43,6 +43,8 @@
             if (!$.cookie('superbowl_visit')) {
                 alert('show splah');
                 $.cookie('superbowl_visit', 'true', { expires: 2 });
+            } else {
+                
             };
 
             var socket = io.connect();
@@ -94,26 +96,48 @@
 </head>
 <body>
     <div class="container">
-        <div id="title">
-            <span id="playerName"></span>
-            <h1> Juiced or Not?</h1>
-        </div>
-        <div id="pictures">
-            <span><span class="picture-label">then</span><img src="" id="image1"></span>
-            <span><span class="picture-label">now</span><img src="" id="image2"></span>
-        </div>
-        <div id="submission-cont">
-            <div id="vote-cont">
-                <span id="yes-btn" class="js-vote button" data-bigger='true'>YES</span>
-                <span id="no-btn" class="js-vote button" data-bigger='false'>NO</span>
+        <!-- Splash BEGINS -->
+        <div id="splash">
+            <div>Welcome to <h1>Juiced or Not</h1>
+            <p>the worlds <u>first</u> and <u>only</u> crowdsourcing platform to judge potential juicing athelets</p>
+            </div>
+            <div>
+                <h2>HOW IT WORKS</h2>
+                <p>1) Visit this web app during a game</p>
+                <p>2) After every play, we serve up before and after head photos of one of the players involved in the play</p>
+                <p>3) Realtime updates show you how everyone is judging each player</p>
+            </div>
+            <div>
+                <h2>WHY THIS APP EXISTS</h2>
+                <p>Because kittehs don't like juicers</p>
             </div>
         </div>
-        <div id="count-cont">
-            Yes Votes: <span id="vote-yes-count">0</span> - 
-            No Votes: <span id="vote-no-count">0</span>
-            <br />
-            <span id="numclients"></span> Users Online
+        <!-- Splash ENDS -->
+
+        <!-- Voting BEGINS -->
+        <div>
+            <div id="title">
+                <span id="playerName"></span>
+                <h1> Juiced or Not?</h1>
+            </div>
+            <div id="pictures">
+                <span><span class="picture-label">then</span><img src="" id="image1"></span>
+                <span><span class="picture-label">now</span><img src="" id="image2"></span>
+            </div>
+            <div id="submission-cont">
+                <div id="vote-cont">
+                    <span id="yes-btn" class="js-vote button" data-bigger='true'>YES</span>
+                    <span id="no-btn" class="js-vote button" data-bigger='false'>NO</span>
+                </div>
+            </div>
+            <div id="count-cont">
+                Yes Votes: <span id="vote-yes-count">0</span> - 
+                No Votes: <span id="vote-no-count">0</span>
+                <br />
+                <span id="numclients"></span> Users Online
+            </div>
         </div>
+        <!-- Voting ENDS -->
     </div><!-- container -->
 
 <!-- End Document

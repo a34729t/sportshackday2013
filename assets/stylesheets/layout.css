@@ -22,6 +22,28 @@ body {
 	text-align: center;
 }
 
+#splash {
+	background-color: rgba(0,0,0,0.7);
+	padding: 10px 5px 9px 5px;
+	margin-bottom: 10px;
+	color: #eee;
+	font-size: 14px;
+}
+
+#splash h1 {
+	font-size: 26px;
+	line-height: 100%;
+	margin-top: 10px;
+	margin-bottom: 0px; 
+	color: #82d5f8;
+	font-family: 'Nosifer', cursive;
+}
+
+#splash h2 {
+	font-size: 17px;
+	color: #fff; 
+}
+
 #title {
 	background-color: rgba(0,0,0,0.7);
 	padding: 10px 5px 9px 5px;
@@ -84,9 +106,10 @@ body {
 
 .picture-label {
 	position: absolute;
-	background-color: rgba(219,219,219,0.7);
+	background-color: rgba(219,219,219,0.3);
 	padding: 3px;
 	width: 40px;
+	color: #999;
 }
 
 
