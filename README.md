@@ -32,4 +32,10 @@ To actually turn the on (doesn't need to be re-turned on):
     
 And to turn it off:
 
-    heroku ps:scale web=0
+    heroku ps:scale web=
+    
+## Design Notes
+
+Global vars/settings are in config.js
+
+DB Calls are in dblayer.js
