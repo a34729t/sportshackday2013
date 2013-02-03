@@ -41,12 +41,15 @@
         $(document).ready(function() {
             
             if (!$.cookie('superbowl_visit')) {
-                alert('show splah');
                 $.cookie('superbowl_visit', 'true', { expires: 2 });
             } else {
                 $('#splash').hide();
             };
 
+            $('.js-start-button').click(function(){
+                $('#splash').hide();
+
+            });
             var socket = io.connect();
             socket.on('update', function (data) {
                 console.log(data.name);
@@ -111,6 +114,8 @@
             <div>
                 <h2>WHY THIS APP EXISTS</h2>
                 <p>Because kittens don't like juicers</p>
+                <input type="button" value="Start" style="color: #cb4343;font-size: 30px;" class="js-start-button">
+
             </div>
         </div>
         <!-- Splash ENDS -->
