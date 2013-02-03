@@ -32,12 +32,17 @@ exports.getLastPlayer = function(callback) {
         response.on('end', function () {
             var parser = new xml2js.Parser();
             parser.parseString(body, function (err, result) {
+                if(!result) return closeRequest(request);
                 var game = result.game;
+                if(!game || !game.quarter) return closeRequest(request);
                 var currentQuarter = game.quarter[game.quarter.length-1];
+                if(!currentQuarter || !currentQuarter.drive) return closeRequest(request);
                 var lastDrive = currentQuarter.drive[currentQuarter.drive.length-1];
+                if(!lastDrive || !lastDrive.play)  return closeRequest(request);
                 var lastPlay = lastDrive.play[lastDrive.play.length-1];
+                if(!lastPlay)  return closeRequest(request);
                 var participants = lastPlay.participants[0];
-
+                if(!participants)  return closeRequest(request);
                 var model = {};
                 model.playId = lastPlay.$.id;
                 model.players = new Array();
@@ -53,4 +58,8 @@ exports.getLastPlayer = function(callback) {
     request.end();
 
 
+}
+
+function closeRequest(request) {
+    request.end();
 }

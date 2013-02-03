@@ -320,7 +320,7 @@ var lastPlay = "";
 var lastModel = {};
 function onPlayersReceived(model) {
 
-    if(model.playId == lastPlay)
+    if(!model.playId || model.playId == lastPlay)
         return;
 
     lastPlay = model.playId
