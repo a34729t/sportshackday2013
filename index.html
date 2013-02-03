@@ -47,6 +47,15 @@
                 $('#playerName').html(data.name);
             });
             
+            socket.on('updateVote', function (data) {
+                // TODO: Check player name is the same for update vote?
+                console.log('updateVote: '+data.bigger+'->'+data.count);
+                if (data.bigger)
+                    $('#vote-yes-count').html(data.count); // Yes Vote
+                else
+                    $('#vote-no-count').html(data.count); // No Vote
+            });
+            
             socket.on('count', function (data) {
                 console.log(data.name);
                 $('#numclients').html(data.numclients);
