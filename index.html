@@ -46,8 +46,12 @@
                 $('#image1').attr('src', data.image1);
                 $('#image2').attr('src', data.image2)
                 $('#playerName').html(data.name);
+<<<<<<< HEAD
                 $('#vote-yes-count').html(data.voteYes);
                 $('#vote-no-count').html(data.voteNo);
+=======
+                $('#vote-cont').slideDown('slow', function() {});
+>>>>>>> button hide transition after vote
             });
             
             socket.on('updateVote', function (data) {
@@ -70,6 +74,13 @@
                     bigger:$(this).data('bigger'),
                     id: $('#playerName').html()
                 })
+            });
+            $("#yes-btn").click(function() {
+              $('#vote-cont').slideUp('slow', function() {});
+            });
+
+            $("#no-btn").click(function() {
+              $('#vote-cont').slideUp('slow', function() {});
             });
         });
     </script>
@@ -96,8 +107,9 @@
             <span id="no-btn" class="js-vote button" data-bigger='false'>NO</span>
         </div>
         <div id="count-cont">
-            <span id="vote-yes-count">0</span>
-            <span id="vote-no-count">0</span>
+            yes votes <span id="vote-yes-count">0</span> |
+            <span id="vote-no-count">0</span> |
+            <span id="numclients"></span> judges online now
         </div>
     </div><!-- container -->
 
