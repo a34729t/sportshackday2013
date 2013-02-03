@@ -31,14 +31,14 @@ exports.updateYesVote =function (playerName, callback) {
 }
 
 exports.updateNoVote =function (playerName, callback) {
-  db.collection(config.dbName).update({name: playerName}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {
+  db.collection(config.collectionName).update({name: playerName}, {$inc: { voteNo: 1 } }, {safe:true}, function(err, result) {
     callback(err);
   });
 }
 
 exports.findPlayer = function (playerName, callback) {
-  db.collection(config.collectionName).findOne({name_full: playerName}, function(error, result) {
-    callback(error, result);
+  db.collection(config.collectionName).findOne({name_full: playerName}, function(err, result) {
+    callback(err, result);
   });
 }
 
