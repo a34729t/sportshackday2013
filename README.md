@@ -34,6 +34,22 @@ And to turn it off:
 
     heroku ps:scale web=
     
+## Mongo
+
+To load the data into a db 'player_info' and a collection 'players', with a file 'resources/dump.json':
+
+    mongoimport -d player_info -c players resources/dump.json    
+
+## Changing Data Source
+
+Use url:
+
+    http://localhost:8000/setSource
+
+And put the following in the text box:
+
+    http://localhost:8000/js/plays_1.xml
+
 ## Design Notes
 
 Global vars/settings are in config.js
