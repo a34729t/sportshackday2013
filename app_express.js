@@ -17,14 +17,25 @@ var config = require('./config'); // global vars and that kind of stuff
 //  see: https://devcenter.heroku.com/articles/nodejs#using-mongodb
 var mongoUri = process.env.MONGOLAB_URI || 
               process.env.MONGOHQ_URL || 
-              'mongodb://127.0.0.1/' + config.dbName;
+              'mongodb://127.0.0.1/player_info/';
 
 // We make a global var testData for the test data
 var db;
+console.log(mongoUri)
 mongo.Db.connect(mongoUri, function (err, dbHandle) {
   if (err) console.log("mongo err");
-  db = dbHandle;
+      db = dbHandle;
+/*  dbHandle.collection("players", function(err, collection){
+
+   collection.find().count(function(e, count){
+      console.log(count);
+     });
+  });
+*/
+  //console.log(db.collection('players').count())
 });
+
+
 
 // </MongoDB Stuff>
   
@@ -211,7 +222,7 @@ io.sockets.on('connection', function(socket){
       
     } else {
       if (data.bigger) {
-        db.collection(config.dbName).update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
+        db.collection(config.collectionName).update({name: data.id}, {$inc: { voteYes: 1 } }, {safe:true}, function(err, result) {});
         if (data.id in player2VoteYes)
           player2VoteYes[data.id] += 1;
         else
@@ -257,17 +268,29 @@ function update(playerName, callback) {
         io.sockets.emit('update', result);
         return null;
     } else {
-        db.collection(config.dbName).findOne({name: playerName}, function(error, result) {
+  
+        db.collection(config.collectionName).findOne({name_full: playerName}, function(error, result) {
             if( error ) {
                 return (error);
             }
-            else {
-                if(result!=null){// Update all clients with data
-                result.numclients = numclients; // not necessary
-                io.sockets.emit('update', result);
+            else { 
+      
+                if(result!=null){// Update all clients with data      
+              //  result.numclients = numclients; // not necessary
+              var lowerName = result.name_full.toLowerCase().replace(' ', ''); 
+
+                var model = {
+                  name: result.name_full,
+                  image1: "/players/" + lowerName + "new.png",
+                  image2: "/players/" + lowerName + "old.png"
+
+
+                };
+                console.log(model);
+                io.sockets.emit('update', model);
                 
                 // increment player's appearance count in db
-                db.collection(config.dbName).update({name: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {});
+                db.collection(config.collectionName).update({name_full: playerName}, {$inc: { appearances: 1 } }, {safe:true}, function(err, result) {});
               }
                 return null;
             }
