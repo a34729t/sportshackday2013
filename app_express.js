@@ -323,8 +323,15 @@ function onPlayersReceived(model) {
     if(!model.playId || model.playId == lastPlay)
         return;
 
+
     lastPlay = model.playId
-    var playerName = model.players[0].name;
+    if(model.players.length > 1){
+      var playerName = model.players[1].name;
+    }
+    else{
+      var playerName = model.players[0].name;  
+    }
+    
     console.log('updating to ' + playerName);
 
     update(playerName);
